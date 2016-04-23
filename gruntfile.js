@@ -22,13 +22,15 @@ module.exports = function(grunt) {
         esnext: true,
         node: true,
         globals: {
-          chrome: true,
-          window: true,
-          document: true,
-          DEBUG: true,
           Blob: true,
+          chrome: true,
+          d3: false,
+          DEBUG: true,
+          document: true,
           FileReader: true,
-          navigator: true
+          navigator: true,
+          window: true,
+          Wyliodrin: true
         }
       }
     },
@@ -144,6 +146,11 @@ module.exports = function(grunt) {
       {
         files: [
             {
+              expand: true,
+              src: 'assets/**',
+              dest: 'build/public'
+            },
+            {
               expand: true,     // Enable dynamic expansion.
               cwd: 'source/',      // Src matches are relative to this path.
               src: ['public/**/*.html', '!public/documentation/**'], // Actual pattern(s) to match.
@@ -225,12 +232,12 @@ module.exports = function(grunt) {
       source:
       {
         files: ['source/**/*.js', '!source/public/blockly/**/*.js', '!source/public/documentation/**/*'],
-        tasks: ['default']  
+        tasks: ['default']
       },
       blockly:
       {
         files: ['source/public/blockly**/*.js'],
-        tasks: ['jshint', 'browserify:visualproject', 'copy']  
+        tasks: ['jshint', 'browserify:visualproject', 'copy']
       },
       html:
       {
@@ -373,10 +380,10 @@ module.exports = function(grunt) {
     {
       if (path.extname (installfile) === '.sh')
       {
-        install[path.basename(installfile, '.sh')] = fs.readFileSync (INSTALL_FOLDER+'/'+installfile).toString();  
+        install[path.basename(installfile, '.sh')] = fs.readFileSync (INSTALL_FOLDER+'/'+installfile).toString();
         install[path.basename(installfile, '.sh')] = install[path.basename(installfile, '.sh')].replace (/\r?\n/g, ' ');
         console.log ('Install: '+path.basename(installfile, '.sh'));
-      }      
+      }
     });
     mkdirp.sync (CONFIG);
     fs.writeFileSync (CONFIG+'/install.js', '"use strict";\n module.exports = '+JSON.stringify (install)+';');
@@ -406,12 +413,12 @@ module.exports = function(grunt) {
           console.log ('Language ' + fileTranslated.substring(9).toString() + ' added.');
 
           mkdirp.sync(TRANSLATION_WRITE);
-          fs.writeFileSync( './'+TRANSLATION_WRITE+"locale-"+fileTranslated.substring(9)+".json", JSON.stringify (newObject));     
+          fs.writeFileSync( './'+TRANSLATION_WRITE+"locale-"+fileTranslated.substring(9)+".json", JSON.stringify (newObject));
         }
        });
 
     mkdirp.sync (CONFIG);
-    fs.writeFileSync ('source/config/languages.js', '"use strict";\n module.exports = '+JSON.stringify (result)+';');  
+    fs.writeFileSync ('source/config/languages.js', '"use strict";\n module.exports = '+JSON.stringify (result)+';');
   });
 
   grunt.registerTask ('locale', 'Locale', function ()
@@ -457,12 +464,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask('publish', ['clean', 'default', 'cssmin', 'uglify', 'htmlmin', 'compress']);
 
-  grunt.registerTask('default', ['mixpanel', 'debug', 'makefile', 'languages', 'example', 'install', 'jshint', 
+  grunt.registerTask('default', ['mixpanel', 'debug', 'makefile', 'languages', 'example', 'install', 'jshint',
     'browserify',
     'ngAnnotate',
     'copy',
     'less',
-    'locale', 
+    'locale',
     // 'cssmin',
     // 'uglify',
     // 'htmlmin'
