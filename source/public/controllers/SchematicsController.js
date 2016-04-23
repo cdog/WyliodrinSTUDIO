@@ -141,7 +141,7 @@ module.exports = function ()
     }).then(function (response) {
       Wyliodrin.bc.parts = response.data;
 
-      $rootScope.$emit('loaded.wyliodrin.parts');
+      $rootScope.$emit('bc:library:loaded');
     });
   }
 
@@ -222,7 +222,7 @@ module.exports = function ()
     $scope.categories = null;
 
     var x = $q(function (resolve) {
-      $rootScope.$on('loaded.wyliodrin.parts', function () {
+      $rootScope.$on('bc:library:loaded', function () {
         var categories = [];
 
         angular.forEach(Wyliodrin.bc.parts, function (value, key) {
