@@ -146,11 +146,6 @@ module.exports = function(grunt) {
       {
         files: [
             {
-              expand: true,
-              src: 'assets/**',
-              dest: 'build/public'
-            },
-            {
               expand: true,     // Enable dynamic expansion.
               cwd: 'source/',      // Src matches are relative to this path.
               src: ['public/**/*.html', '!public/documentation/**'], // Actual pattern(s) to match.
