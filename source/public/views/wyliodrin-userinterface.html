@@ -12,7 +12,7 @@
             </md-button> -->
 
 
-            
+
             <div class="title-button md-menu-demo" ng-cloak>
 			  <div class="menu-demo-container" layout-align="center center" layout="column">
 			    <md-menu ng-controller="TranslateController as tn">
@@ -32,8 +32,8 @@
 			    </md-menu>
 			  </div>
 			</div>
-            
-            
+
+
             <div class="title-button md-menu-demo" ng-cloak>
 			  <div class="menu-demo-container" layout-align="center center" layout="column">
 			    <md-menu>
@@ -177,7 +177,7 @@
                </div>
                 <!-- <select ng-model="serialPort" ng-options="serialport.path for serialport in serialPorts track by serialport.path"></select> -->
 				<md-button ng-show="!connected" ng-click="sp.open()" class="open-close">{{ 'DEVICE_CONNECT' | translate }}</md-button>
-                
+
 				<div class="{{a.status()}}" >{{status | translate}}</div>
                 <div class="triangle"></div>
         <div class="os-icon" ng-if="connected">
@@ -187,9 +187,9 @@
             </md-tooltip>
         </div>
 			</div>
-            
+
             <div class="projname">{{ project_name | limitTo:45 }}</div>
-            
+
             <div class="title-button window-control">
                 <md-button class="window-button" ng-click="t.exit()">
                     <md-icon md-svg-src="/public/drawable/closeapp-icon.svg" class="s24" aria-label="{{ 'TOOLBAR_EXIT' | translate }}" ></md-icon>
@@ -216,7 +216,7 @@
                     </md-tooltip>
                 </md-button>
 			</div>
-            
+
 		</div>
 	</md-toolbar>
     <div class="tabs-box-container">
@@ -224,7 +224,7 @@
             <!-- <md-tab >
                 <md-tab-label>Welcome</md-tab-label>
                 <md-tab-body>
-    
+
                 </md-tab-body>
             </md-tab> -->
             <md-tab>
@@ -232,7 +232,7 @@
                 <md-tab-body>
                     <div layout="column" ng-controller="ProjectController as p" style="positon:relative;">
                         <div flex="{{showXterm?65:100}}" layout="row">
-    
+
                             <md-tabs md-align-tabs="bottom" flex="100" class="tabs-box software_label">
                                 <md-tab>
                                     <md-tab-label>{{label[device.category].software}}</md-tab-label>
@@ -248,8 +248,8 @@
                                               showGutter: true,
                                               mode:'python',
                                               theme:'chrome',
-                                              rendererOptions: { 
-                                                fontSize: 14 
+                                              rendererOptions: {
+                                                fontSize: 14
                                               },
                                               firstLineNumber: 1,
                                               onLoad: aceSoftwareLoaded,
@@ -261,8 +261,8 @@
                                                 <div flex="{{showhidecode?35:0}}" ng-show="showhidecode" ui-ace="{
                                                   useWrapMode : false,
                                                   showGutter: true,
-                                                  rendererOptions: { 
-                                                    fontSize: 14 
+                                                  rendererOptions: {
+                                                    fontSize: 14
                                                   },
                                                   mode: (device.category!=='chrome'?'python':'javascript'),
                                                   theme:'chrome',
@@ -287,8 +287,8 @@
                                               showGutter: true,
                                               mode: 'c_cpp',
                                               theme:'chrome',
-                                              rendererOptions: { 
-                                                fontSize: 14 
+                                              rendererOptions: {
+                                                fontSize: 14
                                               },
                                               firstLineNumber: 1,
                                               onLoad: aceFirmwareLoaded,
@@ -320,7 +320,7 @@
                                   </dashboard-viewer>
                                 </md-grid-tile>
                             </md-grid-list>
-                            
+
                             <div class="widgets-toolBox">
                                 <ul class="widgets_grid">
                                     <li ng-repeat="style in styles" class="widget_item">
@@ -331,7 +331,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            
+
                         </div>
                     </div>
                 </md-tab-body>
@@ -339,12 +339,7 @@
             <md-tab ng-disabled="project_disable">
               <md-tab-label>{{ 'PROJECT_SCHEMATICS' | translate }}</md-tab-label>
               <md-tab-body>
-                <div layout="column" ng-controller="SchematicsController as s" class="schematics-box">
-                  <schematics ng-show="project.schematics.length > 0" value="project.schematics" ng-class="(wider?'widthlarger':'heightlarger')"></schematics>
-                  <div ng-hide="project.schematics.length > 0" class="schematics-msg"></div>
-                  <md-button ng-hide="project.schematics.length > 0" ng-click="s.load ()" class="svg-btn">{{ 'SCHEMATICS_LOAD' | translate }}</md-button>
-                  <md-button ng-show="project.schematics.length > 0" ng-click="s.erase ()" class="svg-btn">{{ 'TOOLBAR_ERASE' | translate }}</md-button>
-                </div>
+                <div layout="column" ng-controller="SchematicsController as s" class="schematics-box"></div>
               </md-tab-body>
             </md-tab>
             <md-tab ng-disabled="device.category === 'board'">
