@@ -20,9 +20,9 @@ module.exports = function ()
   }
 
   (function (Wyliodrin) {
-    Wyliodrin.schemed = {
+    Wyliodrin.bc = { // Breadboard Circuits
       parts: [],
-      partsPath: '/public/assets/app/parts/parts.json'
+      libraryPath: '/public/drawable/parts'
     };
   })(Wyliodrin);
 
@@ -128,7 +128,7 @@ module.exports = function ()
   var group = canvas.append('g');
 
   function loadParts($http, $rootScope, $scope) {
-    $http.get(Wyliodrin.schemed.partsPath, {
+    $http.get(Wyliodrin.bc.libraryPath + '/parts.json', {
       eventHandlers: {
         progress: function (event) {
           if (event.lengthComputable) {
@@ -139,7 +139,7 @@ module.exports = function ()
         }
       }
     }).then(function (response) {
-      Wyliodrin.schemed.parts = response.data;
+      Wyliodrin.bc.parts = response.data;
 
       $rootScope.$emit('loaded.wyliodrin.parts');
     });
@@ -157,7 +157,7 @@ module.exports = function ()
 
       if (value.type === 'part') {
         part.id = value.id;
-        part.icon = '/public/assets/app/parts/svg/icons/' + value.views.icon;
+        part.icon = Wyliodrin.bc.libraryPath + '/svg/icons/' + value.views.icon;
       }
 
       parts.push(part);
@@ -189,7 +189,7 @@ module.exports = function ()
   }
 
   function findPart(id) {
-    return _findPart(Wyliodrin.schemed.parts, id);
+    return _findPart(Wyliodrin.bc.parts, id);
   }
 
   var app = angular.module ('wyliodrinApp');
@@ -225,14 +225,14 @@ module.exports = function ()
       $rootScope.$on('loaded.wyliodrin.parts', function () {
         var categories = [];
 
-        angular.forEach(Wyliodrin.schemed.parts, function (value, key) {
+        angular.forEach(Wyliodrin.bc.parts, function (value, key) {
           var category = {
             key: key,
             title: value.title
           };
 
           if (value.icon !== undefined) {
-            category.icon = '/public/assets/app/parts/icons/' + value.icon;
+            category.icon = Wyliodrin.bc.libraryPath + '/icons/' + value.icon;
           }
 
           categories.push(category);
@@ -256,7 +256,7 @@ module.exports = function ()
         return;
       }
 
-      $scope.parts = flattenCategory(Wyliodrin.schemed.parts[$scope.category].parts);
+      $scope.parts = flattenCategory(Wyliodrin.bc.parts[$scope.category].parts);
     };
 
     $scope.$watch('category', $scope.loadCategory);
